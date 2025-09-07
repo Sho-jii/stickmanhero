@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stick Hero - Promise Demo</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="hud">
+        <div class="score">Score: <span id="scoreValue">0</span></div>
+        <button id="restartBtn" class="btn" hidden>Restart</button>
+        <div id="log" class="log" aria-live="polite"></div>
+    </div>
+
+    <div id="game" class="game">
+        <!-- Background layers -->
+        <div class="background">
+            <div class="sky-gradient"></div>
+            <div class="clouds"></div>
+        </div>
+        
+        <!-- Ground -->
+        <div id="ground" class="ground"></div>
+        
+        <!-- World wrapper pans left/right like a camera -->
+        <div id="world" class="world">
+            <!-- Platforms will be generated here -->
+            <div id="platforms" class="platforms"></div>
+
+            <!-- Stick -->
+            <div id="stick" class="stick"></div>
+
+            <!-- Hero -->
+            <div id="hero" class="hero"></div>
+        </div>
+
+        <div id="message" class="message">Hold to grow the stick, release to drop</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
