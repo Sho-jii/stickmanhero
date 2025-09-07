@@ -1,0 +1,324 @@
+/* Stick Hero Style - Original Design */
+
+* { 
+    box-sizing: border-box; 
+}
+
+html, body { 
+    height: 100%; 
+    margin: 0; 
+    font-family: 'Arial', sans-serif; 
+    background: #000;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+.game {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background: linear-gradient(to bottom, #FFA500 0%, #FFD700 100%);
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.hud {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    z-index: 1000;
+}
+
+.score { 
+    background: rgba(255,255,255,0.9); 
+    color: #000;
+    border: 2px solid #000; 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.btn { 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    border: 2px solid #e74c3c; 
+    background: #e74c3c; 
+    color: white;
+    cursor: pointer; 
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn:hover { 
+    background: #c0392b; 
+    transform: scale(1.05);
+}
+
+.log {
+    max-width: 280px;
+    max-height: 100px;
+    overflow: auto;
+    background: rgba(0,0,0,0.9);
+    color: #00ff00;
+    border: 2px solid #27ae60;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Background layers */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.sky-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70%;
+    background: linear-gradient(to bottom, #FFA500 0%, #FFD700 100%);
+}
+
+.clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><circle cx="50" cy="50" r="20" fill="white" opacity="0.8"/><circle cx="70" cy="50" r="25" fill="white" opacity="0.8"/><circle cx="90" cy="50" r="20" fill="white" opacity="0.8"/><circle cx="200" cy="40" r="18" fill="white" opacity="0.6"/><circle cx="220" cy="40" r="22" fill="white" opacity="0.6"/><circle cx="240" cy="40" r="18" fill="white" opacity="0.6"/><circle cx="320" cy="60" r="15" fill="white" opacity="0.7"/><circle cx="340" cy="60" r="20" fill="white" opacity="0.7"/><circle cx="360" cy="60" r="15" fill="white" opacity="0.7"/></svg>') repeat-x;
+    animation: cloudMove 60s linear infinite;
+}
+
+@keyframes cloudMove {
+    0% { transform: translateX(-100px); }
+    100% { transform: translateX(400px); }
+}
+
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(to top, #228B22 0%, #32CD32 50%, #90EE90 100%);
+    z-index: 2;
+}
+
+.world {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(0px);
+    z-index: 3;
+}
+
+.platforms { 
+    position: absolute; 
+    bottom: 30%; 
+    left: 0; 
+    right: 0; 
+    height: 200px; 
+}
+
+.platform {
+    position: absolute;
+    bottom: 0;
+    height: 120px;
+    background: #000;
+    border-radius: 5px 5px 0 0;
+}
+
+.stick {
+    position: absolute;
+    bottom: calc(30% + 120px);
+    left: 0;
+    width: 4px;
+    height: 0px;
+    background: #000;
+    transform-origin: bottom center;
+    transform: rotate(0deg);
+    z-index: 4;
+}
+
+/* Original Stick Hero Character */
+.hero {
+    position: absolute;
+    bottom: calc(30% + 120px);
+    left: 40px;
+    width: 16px;
+    height: 24px;
+    background: #000;
+    border-radius: 2px;
+    z-index: 5;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    height: 4px;
+    background: #ff0000;
+    border-radius: 2px;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+/* Stick Length Indicator */
+.stick-length-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    z-index: 1000;
+}
+
+/* Enhanced Animations */
+@keyframes stickmanWalk {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-2px); }
+}
+
+@keyframes stickmanJump {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-8px) scale(1.1); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+.hero.walking {
+    animation: stickmanWalk 0.3s ease-in-out infinite;
+}
+
+.hero.jumping {
+    animation: stickmanJump 0.4s ease-in-out;
+}
+
+.message {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 2px solid #fff;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 10;
+}
+
+/* Ambient elements */
+.cloud, .bird {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    z-index: 2;
+}
+
+.cloud { 
+    width: 50px; 
+    height: 25px; 
+    opacity: 0.8;
+}
+
+.cloud::before, .cloud::after {
+    content: ""; 
+    position: absolute; 
+    background: #ffffff; 
+    border-radius: 50px;
+}
+
+.cloud::before { 
+    width: 30px; 
+    height: 30px; 
+    left: -12px; 
+    top: -8px; 
+}
+
+.cloud::after { 
+    width: 35px; 
+    height: 35px; 
+    right: -15px; 
+    top: -12px; 
+}
+
+.bird { 
+    width: 12px; 
+    height: 12px; 
+    background: transparent; 
+}
+
+.bird::before, .bird::after { 
+    content: ""; 
+    position: absolute; 
+    width: 12px; 
+    height: 3px; 
+    background: #333; 
+    top: 5px; 
+}
+
+.bird::before { 
+    transform: rotate(25deg); 
+    left: -10px; 
+}
+
+.bird::after { 
+    transform: rotate(-25deg); 
+    right: -10px; 
+}
+
+/* Success/Failure animations */
+@keyframes heroJump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes stickShake {
+    0%, 100% { transform: rotate(90deg); }
+    25% { transform: rotate(85deg); }
+    75% { transform: rotate(95deg); }
+}
+
+.success .hero {
+    animation: heroJump 0.3s ease-in-out;
+}
+
+.failure .stick {
+    animation: stickShake 0.5s ease-in-out;
+}
